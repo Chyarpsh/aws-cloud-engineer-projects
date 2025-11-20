@@ -89,13 +89,3 @@ Most rewarding moment: Seeing the webpage **successfully load after refresh** �
 | Add monitoring & logging | CloudWatch |
 
 ---
-
-## 📂 Folder Structure  
-p1-lab01-host-a-website-on-amazon-s3/
-│
-├── README.md
-├── screenshots/
-├── website/
-└── AWS-Host-a-Website-on-s3.pdf
-
----
