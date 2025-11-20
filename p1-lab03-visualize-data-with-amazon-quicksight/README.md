@@ -138,19 +138,5 @@ Everything displayed correctly after the refresh. :contentReference[oaicite:8]{i
 
 ---
 
-## 📂 Folder Structure  
-
-p1-lab03-visualize-data-with-amazon-quicksight/
-│
-├── README.md
-├── screenshots/
-├── Data_Visualization.pdf
-├── Aws-Analytics-QuickSight.pdf
-├── netflix_titles.csv
-├── netflix_titles_updated.csv
-├── manifest.json
-└── documentation/
-
----
 
 
