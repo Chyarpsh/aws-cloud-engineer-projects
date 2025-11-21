@@ -11,7 +11,9 @@ Screenshots
 
 IAM policy JSON 
 
-⭐ Objective
+---
+
+# ⭐ Objective
 
 To understand and implement:
 
@@ -25,12 +27,22 @@ IAM Policy Simulator for permission validation
 
 Secure login using Account Alias
 
-🔧 AWS Services Used
-Service	Purpose
-AWS IAM	User, groups, custom policies
-Amazon EC2	Testing access and permission restrictions
-IAM Policy Simulator	Verify policy logic
-🧩 What I Built
+---
+
+
+# 🔧 AWS Services Used
+
+| Service |	Purpose |
+| AWS IAM |	User groups, custom policies |
+| Amazon EC2 |	Testing access and permission restrictions |
+| IAM Policy Simulator |	Verify policy logic |
+
+---
+
+# 🧩 What I Built
+
+---
+
 1️⃣ Resource Tagging
 
 I tagged EC2 instances with:
@@ -40,6 +52,8 @@ environment = production
 environment = development
 
 These tags were later used to allow or deny actions via IAM policies.
+
+---
 
 2️⃣ Custom IAM Policy
 
@@ -55,9 +69,13 @@ I created a JSON policy called NextWorkDevEnvironmentPolicy that:
 
 This ensured interns cannot modify production instances or tags.
 
+---
+
 3️⃣ Account Alias Setup
 
 I configured an AWS Account Alias, allowing IAM users to log in through a human-readable URL instead of a long numerical account ID.
+
+---
 
 4️⃣ IAM Users & Groups
 
@@ -71,7 +89,10 @@ Assigned the user to the group
 
 The intern inherits all permissions from the group.
 
-🧪 Testing IAM Permissions
+---
+
+# 🧪 Testing IAM Permissions
+
 ❌ Attempt to stop production EC2 instance
 
 → Access Denied
@@ -82,7 +103,9 @@ This confirmed that the policy successfully blocks production actions.
 → Success
 This validated correct and secure permissions.
 
-🧰 IAM Policy Simulator Testing
+---
+
+# 🧰 IAM Policy Simulator Testing
 
 I used the simulator to verify:
 
@@ -98,7 +121,9 @@ Development instance: Allowed
 
 The simulator confirmed tag-based restrictions were working correctly.
 
-🕒 Time Taken
+---
+
+# 🕒 Time Taken
 
 ~2 hours, including:
 
@@ -110,7 +135,9 @@ Validating changes
 
 Writing documentation
 
-🧠 Key Learnings
+---
+
+# 🧠 Key Learnings
 
 Tags are powerful for resource-level access control
 
@@ -119,5 +146,7 @@ IAM “Deny” ALWAYS overrides “Allow”
 Least privilege principle is essential for cloud security
 
 IAM Policy Simulator makes debugging easy
+
+---
 
 Proper tagging is critical for enforcing policy boundaries
