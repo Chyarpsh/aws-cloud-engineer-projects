@@ -1,38 +1,36 @@
-Lab 02 – Cloud Security with AWS IAM
+# Lab 02 – Cloud Security with AWS IAM
 
-This lab demonstrates how I used AWS IAM (Identity and Access Management) to securely control access to AWS resources. The goal of the project was to understand how permissions, policies, tags, and IAM users work together to enforce strong cloud security.
+This lab demonstrates how I implemented secure access control in AWS using Identity and Access Management (IAM).
+The goal was to ensure that an intern-level user could only manage development EC2 instances, while production EC2 instances remained protected, using tags and custom IAM policies.
 
-This lab includes:
+This folder contains:
 
 Documentation PDF
 
 Screenshots
 
-IAM policy JSON
-
-Lab reflections and test results
+IAM policy JSON 
 
 ⭐ Objective
 
-Build and test a secure IAM permission system that ensures:
+To understand and implement:
 
-Intern-level users can ONLY manage development EC2 instances
+IAM users & groups
 
-Production EC2 instances are protected from unauthorized actions
+Custom policies using JSON
 
-IAM users log in through a custom account alias
+Resource tagging for access control
 
-Permissions are validated using the IAM Policy Simulator
+IAM Policy Simulator for permission validation
+
+Secure login using Account Alias
 
 🔧 AWS Services Used
-
-AWS IAM
-
-Amazon EC2
-
-IAM Policy Simulator
-
-🧩 What I Built & Learned
+Service	Purpose
+AWS IAM	User, groups, custom policies
+Amazon EC2	Testing access and permission restrictions
+IAM Policy Simulator	Verify policy logic
+🧩 What I Built
 1️⃣ Resource Tagging
 
 I tagged EC2 instances with:
@@ -41,117 +39,85 @@ environment = production
 
 environment = development
 
-(Ref: Screenshot and explanation on page 3 of the PDF) 
+These tags were later used to allow or deny actions via IAM policies.
 
-AWS_Security_IAM
+2️⃣ Custom IAM Policy
 
-Tags were later used inside IAM policies to allow or restrict actions.
+I created a JSON policy called NextWorkDevEnvironmentPolicy that:
 
-2️⃣ Custom IAM Policy (JSON)
+✔️ Allows full EC2 access only on resources tagged:
+"environment": "development"
 
-I created a custom policy that:
+❌ Denies EC2 access on resources tagged:
+"environment": "production"
 
-✔️ Allows the intern to perform any EC2 action (ec2:*)
-✔️ BUT only on instances tagged with environment = development
-✔️ Denies tag creation/deletion
-✔️ Denies access to production instances
+❌ Denies the ability to create or delete resource tags.
 
-This is shown in the JSON policy section on pages 4–6 of the PDF. 
-
-AWS_Security_IAM
+This ensured interns cannot modify production instances or tags.
 
 3️⃣ Account Alias Setup
 
-I created an AWS Account Alias, which replaces the numeric account ID with a human-readable login URL.
-
-This step is documented on page 7 of the PDF. 
-
-AWS_Security_IAM
+I configured an AWS Account Alias, allowing IAM users to log in through a human-readable URL instead of a long numerical account ID.
 
 4️⃣ IAM Users & Groups
 
-Created a user group
+Created an Intern User Group
 
-Attached the custom NextWorkDevEnvironmentPolicy to the group
+Attached the custom policy
 
-Created a new IAM user (Intern) inside the group
+Created an Intern IAM User
 
-(Explained on pages 8–9 of the PDF) 
+Assigned the user to the group
 
-AWS_Security_IAM
+The intern inherits all permissions from the group.
 
-Interns automatically inherit the development-only permissions.
+🧪 Testing IAM Permissions
+❌ Attempt to stop production EC2 instance
 
-5️⃣ Testing IAM Permissions
-❌ Attempt to stop the production EC2 instance → Access Denied
+→ Access Denied
+This confirmed that the policy successfully blocks production actions.
 
-This confirmed the policy prevented unwanted access
-(Shown on page 10) 
+✔️ Attempt to stop development EC2 instance
 
-AWS_Security_IAM
+→ Success
+This validated correct and secure permissions.
 
-✔️ Attempt to stop the development instance → Success
+🧰 IAM Policy Simulator Testing
 
-This validated correct allowed permissions
-(Shown on page 11) 
+I used the simulator to verify:
 
-AWS_Security_IAM
+ec2:StopInstances
 
-6️⃣ IAM Policy Simulator Validation
+ec2:DeleteTags
 
-Used the simulator to test:
+Results:
 
-StopInstances
+Production instance: Denied
 
-DeleteTags
+Development instance: Allowed
 
-Confirmed that:
+The simulator confirmed tag-based restrictions were working correctly.
 
-Production access = Denied
+🕒 Time Taken
 
-Development access = Allowed
+~2 hours, including:
 
-(Shown on page 12) 
+Designing the policy
 
-AWS_Security_IAM
+Testing access
 
-📄 Files in This Folder
-p2-lab02-cloud-security-with-aws-iam/
-│
-├── README.md
-├── documentation/
-│   └── AWS_Security_IAM.pdf
-├── screenshots/
-│   └── *.png
-└── policy/
-    └── iam_policy.json   (optional if you add it)
+Validating changes
 
-🕒 Project Duration
+Writing documentation
 
-~2 hours
+🧠 Key Learnings
 
-As stated in your reflection (page 2) 
+Tags are powerful for resource-level access control
 
-AWS_Security_IAM
+IAM “Deny” ALWAYS overrides “Allow”
 
-🧠 Key Takeaways
+Least privilege principle is essential for cloud security
 
-IAM policies require careful scoping
+IAM Policy Simulator makes debugging easy
 
-Tags provide powerful, flexible resource control
-
-Deny permissions always override Allow
-
-The IAM Policy Simulator is an essential security tool
-
-Real-world IAM issues often come from incorrect tagging or missing resource ARNs
-
-🎯 Outcome
-
-This lab successfully proved:
-
-IAM permissions can be enforced precisely
-
-Production environments can be protected
-
-Intern-level users can operate safely within defined boundaries
+Proper tagging is critical for enforcing policy boundaries
