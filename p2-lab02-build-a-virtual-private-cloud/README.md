@@ -90,7 +90,7 @@ For private subnet:
 
 No internet route (optional)
 
-5️⃣ (Optional) CloudShell Testing
+5️⃣ CloudShell Testing
 
 If AWS CloudShell was used, validated network components using commands like:
 
@@ -99,6 +99,7 @@ aws ec2 describe-subnets
 aws ec2 describe-route-tables
 
 Screenshot included:
+
 📌 Cloudshell.png
 
 # 🧠 Key Learnings
