@@ -1,69 +1,83 @@
-# VPC Traffic Flow & Security Lab 🛡️
+## VPC – Traffic Flow & Security Lab
 
-# Overview
+# 🧭 Project Summary
 
-This lab demonstrates how network traffic flows inside an AWS Virtual Private Cloud (VPC), and how to properly secure workloads using routing, security groups, and network ACLs. The lab also shows how to manage and view VPC resources across multiple AWS regions.
+This lab explores how network traffic flows within a Virtual Private Cloud (VPC) in Amazon Web Services (AWS), and demonstrates how to build security boundaries using Route Tables, Security Groups, and Network ACLs. It also includes a multi-region deployment and shows how to track resources across regions using AWS console tools (e.g. “Global EC2/VPC” view). The goal: understand instance-level vs subnet-level security, routing, and secure cloud network architecture.
 
-What This Project Covers
+# 🔧 What You’ll Learn / What the Lab Does
 
-Creation and configuration of Route Tables, Internet Gateways, Subnets
+Create and configure Route Tables and Internet Gateways (IGWs) to manage public/private subnet routing.
 
-Instance-level security using Security Groups (inbound/outbound rules)
+Define Security Groups to control instance-level inbound/outbound traffic.
 
-Subnet-level security using Network ACLs (custom ACLs with allow/deny rules)
+Define Network ACLs (NACLs) for subnet-level packet filtering, with explicit allow/deny rules.
 
-Comparison between security groups and network ACLs — instance-level vs subnet-level protection
+Compare and contrast Security Groups vs Network ACLs: stateful vs stateless, instance-level vs subnet-level, default behaviors, rule definitions.
 
-Multi-region resource deployment and cross-region resource visibility
+Deploy VPC resources (VPC, subnets, IGW, Security Group, optional NACL) in a non-default AWS region — simulating a multi-region architecture.
 
-Use of AWS tooling (e.g. Global EC2 / VPC dashboard) for auditing resources
+Use AWS console (or relevant monitoring tools) to view and audit resources across all regions — demonstrating cross-region awareness for real-world cloud operations.
 
-# Architecture & Concepts
+# 📄 Architecture & Concepts Overview
 
-Route Table: determines how network packets are routed — e.g. a route to 0.0.0.0/0 via an Internet Gateway makes a subnet public.
+Route Table + IGW → Public Subnet: Using a route like 0.0.0.0/0 pointing to IGW turns a subnet into a public subnet.
 
-Internet Gateway (IGW): enables Internet connectivity to subnets flagged as public.
+Security Groups (SG): Instance-level firewalls, stateful — only allow rules, manage inbound and outbound separately. In this lab: inbound HTTPS from anywhere, outbound default-allow.
 
-Security Group: acts as a stateful firewall at the instance level. We configured:
+Network ACLs (NACLs): Subnet-level firewalls, stateless — can have allow and deny rules. A custom NACL defaults to “deny all”, encouraging least-privilege by default.
 
-Inbound: HTTPS (port 443) from anywhere (IPv4)
+Defense in Depth: Combining SGs and NACLs adds layered security — stricter control at both instance and subnet layers.
 
-Outbound: default allow-all
+Multi-Region Deployment & Global View: Deploy resources outside default region; use global resource visibility (e.g. AWS Global EC2/VPC dashboard) to track resources — useful in distributed or multi-region architectures.
 
-Network ACL (NACL): acts at the subnet level, stateless, allowing both allow- and deny- rules. Custom NACLs default to “deny all” until explicitly permitted — giving a second layer of subnet-level security beyond security groups.
+# 🛠️ Lab Steps (What Was Done)
 
-Multi-region awareness: VPC resources (VPC, IGW, Security Group, etc.) created in a non-default region (e.g. us-west-1) to simulate a multi-region environment. Used a global EC2/VPC view to monitor resources across regions.
+Create a new VPC with subnets.
 
-# Steps / What I Did
+Attach an Internet Gateway (IGW) to the VPC.
 
-Created a new VPC and configured subnets.
+Create a Route Table and add a route (0.0.0.0/0 → IGW) to make the subnet public.
 
-Set up a Route Table — added a route for 0.0.0.0/0 targeting an Internet Gateway (IGW) to make the subnet public.
+Launch one or more EC2 instances inside that public subnet (or plan for future workload).
 
-Created an Internet Gateway and attached to the VPC.
+Define a Security Group for the instance(s): allow inbound HTTPS (port 443) from anywhere (IPv4), allow default outbound.
 
-Launched EC2 instance(s) inside the subnet.
+(Optional / recommended) Create a custom Network ACL for the subnet: remove default allow-all rules, define explicit allow/deny as needed — implement least-privilege subnet firewall.
 
-Created and assigned a Security Group to the instance: configured inbound and outbound rules (HTTPS inbound, outbound all).
+(Optional) Launch resources in a different AWS region than default — e.g. deploy VPC in “us-west-1” (or other) to simulate multi-region.
 
-Created a custom Network ACL for the subnet: initially “deny all”, then added explicit allow rules — demonstrating a default-deny subnet-level firewall.
+Use AWS console’s multi-region/global view (e.g. Global EC2/VPC) to locate and audit all VPC-related resources across regions.
 
-Deployed resources in a separate AWS region (e.g. us-west-1) to test cross-region deployments.
+Document all steps, configurations, screenshots, and reflect on security/routing implications (as captured in the PDF).
 
-Used AWS console’s global EC2/VPC dashboard to view and audit resources across all regions.
+All configuration details, screenshots, routing tables, SG/NACL rules, and reflections live inside the provided VPC_Traffic_Flow_and_Security.pdf.
 
-(All steps, configuration details, and reflections are in the included PDF: VPC_Traffic_Flow_and_Security.pdf.)
+# ✅ Key Takeaways & Lessons Learned
 
-# What I Learned / Key Takeaways
+Route tables + IGW determine public vs private subnets.
 
-Route tables + IGW define whether a subnet is public or private.
+Security Groups provide fine-grained, stateful, instance-level security.
 
-Security Groups provide fine-grained, instance-level protection — only allow what’s needed.
+Network ACLs provide subnet-level, stateless, allow/deny security — good for extra layer of defense.
 
-Network ACLs add a subnet-level security boundary — ideal as a “defense-in-depth” layer.
+Default NACLs are permissive — custom NACLs should default to deny, then open only necessary traffic.
 
-Custom NACLs default to deny all, which is a safer baseline than default “allow all.”
+Using both SGs and NACLs enforces a layered security posture (defense-in-depth).
 
-Deploying VPC infrastructure across regions helps simulate real-world, global-scale architecture.
+Multi-region resource tracking (via AWS global view tools) is important to manage distributed infrastructure and ensure visibility.
 
-Using global resource-view tools simplifies multi-region resource review and auditing.
+Proper documentation, screenshots, and configuration notes help replicate, audit, and cleanup resources (especially to avoid unexpected bills).
+
+# 📂 Lab Files / Project Structure
+/VPC_Traffic_Flow_and_Security/
+│
+├── VPC_Traffic_Flow_and_Security.pdf    # Full documentation: architecture, screenshots, configs, reflections  
+├── README.md                             # This file  
+└── screenshots/               # Folder for any screenshots referenced in the PDF/documentation  
+
+
+# 📈 About This Project
+
+This lab is part of a broader roadmap in the aws-cloud-engineer-projects repository, aimed at building end-to-end AWS cloud engineering skills — from networking and security to compute, storage, DevOps, and beyond.
+
+It demonstrates a foundational understanding of cloud network architecture and security practices, which are essential for real-world cloud/DevOps roles.
