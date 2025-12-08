@@ -112,16 +112,6 @@ Multi-region visibility is essential for real cloud operations
 
 AWS Global View simplifies auditing and resource discovery across regions
 
-# 📂 Project Structure
-
-/VPC_Traffic_Flow_and_Security/
-│
-├── VPC_Traffic_Flow_and_Security.pdf     # Full lab write-up with diagrams, screenshots, and explanations
-└── README.md                             # This file
-|── /screenshots/                              # If you want to store images referenced in the PDF
-
-
-
 # 📜 About This Lab
 
 This lab is part of the AWS Cloud Engineer Projects series, designed to build practical, job-ready cloud skills across networking, security, compute, DevOps, and data engineering.
