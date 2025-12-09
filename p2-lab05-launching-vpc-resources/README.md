@@ -81,3 +81,25 @@ High availability
 Redundancy
 
 Production readiness
+
+# 📚 What I Learned
+
+🛣️ Automated vs Manual VPC Creation
+
+The wizard creates the key networking components automatically, showing that AWS encourages multi-AZ, redundant architectures by default.
+
+# 🗺️ VPC Resource Map
+
+I used the resource map to visualize relationships between:
+
+Subnets
+
+Route tables
+
+Security groups
+
+Internet gateways
+
+EC2 instances
+
+This helped me better understand network flows and dependencies.
