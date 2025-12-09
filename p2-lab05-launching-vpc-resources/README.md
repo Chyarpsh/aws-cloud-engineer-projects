@@ -30,57 +30,57 @@ I created public and private subnets, attached an Internet Gateway, and configur
 
 This architecture allows:
 
-Public servers ⇒ internet-accessible
-
-Private servers ⇒ internal-only, secure
+    Public servers ⇒ internet-accessible
+    
+    Private servers ⇒ internal-only, secure
 
 2. Direct VM Access Setup (SSH) 🔑
 
-Configured SSH access using a .pem private key
-
-Understood direct access vs bastion host or load balancer access
-
-Reviewed how key pairs secure EC2 login authentication
+    Configured SSH access using a .pem private key
+    
+    Understood direct access vs bastion host or load balancer access
+    
+    Reviewed how key pairs secure EC2 login authentication
 
 3. Launching a Public Server 🌍
 
-Selected NextWork VPC
-
-Deployed the instance in the public subnet
-
-Assigned an existing security group to allow public access (e.g., SSH/HTTPS)
+    Selected NextWork VPC
+    
+    Deployed the instance in the public subnet
+    
+    Assigned an existing security group to allow public access (e.g., SSH/HTTPS)
 
 4. Launching a Private Server 🔒
 
-Created a dedicated security group with stricter controls
-
-Allowed inbound traffic only from the public server’s security group
-
-Ensured the private instance had no direct internet exposure
-
-Demonstrated proper internal-tier workload isolation
+    Created a dedicated security group with stricter controls
+    
+    Allowed inbound traffic only from the public server’s security group
+    
+    Ensured the private instance had no direct internet exposure
+    
+    Demonstrated proper internal-tier workload isolation
 
 5. Speeding Up VPC Creation ⚡
 
-I used the VPC Wizard ("VPC and more"), which automatically created:
-
-A VPC (10.0.0.0/16)
-
-Public + private subnets across two Availability Zones
-
-Route tables
-
-Optional NAT gateways
-
-Internet gateway
-
-This follows AWS best practices for:
-
-High availability
-
-Redundancy
-
-Production readiness
+    I used the VPC Wizard ("VPC and more"), which automatically created:
+    
+    A VPC (10.0.0.0/16)
+    
+    Public + private subnets across two Availability Zones
+    
+    Route tables
+    
+    Optional NAT gateways
+    
+    Internet gateway
+    
+    This follows AWS best practices for:
+    
+    High availability
+    
+    Redundancy
+    
+    Production readiness
 
 # 📚 What I Learned
 
@@ -92,14 +92,14 @@ The wizard creates the key networking components automatically, showing that AWS
 
 I used the resource map to visualize relationships between:
 
-Subnets
-
-Route tables
-
-Security groups
-
-Internet gateways
-
-EC2 instances
-
-This helped me better understand network flows and dependencies.
+    Subnets
+    
+    Route tables
+    
+    Security groups
+    
+    Internet gateways
+    
+    EC2 instances
+    
+    This helped me better understand network flows and dependencies.
