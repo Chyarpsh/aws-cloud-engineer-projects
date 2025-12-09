@@ -103,3 +103,24 @@ I used the resource map to visualize relationships between:
     EC2 instances
     
     This helped me better understand network flows and dependencies.
+
+# 🌐 Best Practice: Two Public Subnets
+
+AWS only offered 0 or 2 public subnets when selecting two AZs, ensuring redundancy — one subnet per AZ.
+
+
+
+# 🔄 NAT Gateways
+
+The wizard provided an option to add NAT Gateways so private subnets can initiate outbound internet connections securely, without exposing them to incoming traffic.
+
+
+# 🤔 One Thing I Didn’t Expect
+
+I didn’t expect that using “VPC and more” would automatically create all core VPC resources at once — including route tables, NACLs, IGWs, and security groups — reducing manual      setup time and simplifying network provisioning.
+
+
+# ⏱️ Time Spent
+
+This project took 2 hours to complete.
+
