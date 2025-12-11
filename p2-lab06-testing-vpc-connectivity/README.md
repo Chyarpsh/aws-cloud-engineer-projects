@@ -19,3 +19,14 @@ This project focuses on testing and validating network connectivity within a VPC
 🔗 Understanding VPC peering routing requirements
 
 📡 Comparing ICMP vs HTTP/S level connectivity
+
+# What I Tested & Implemented
+
+1. SSH Connectivity to Public Server 🔑
+
+Used EC2 Instance Connect, which generates temporary SSH keys and removes the need to manage keys locally
+
+First SSH attempt failed because the security group allowed only HTTP, not SSH
+
+Fixed by adding inbound SSH (port 22) from Anywhere-IPv4
+
