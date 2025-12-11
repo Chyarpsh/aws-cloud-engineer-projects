@@ -89,5 +89,12 @@ This project focuses on testing and validating network connectivity within a VPC
     Together they help identify where the failure occurs
 
 
+# 🤯 One Thing I Didn’t Expect
+
+I expected VPC peering alone to allow connectivity — but discovered that each VPC’s route table must explicitly include routes to the peer VPC for traffic to flow.
+This insight emphasized that networking is not just about linking VPCs, but also about ensuring routing paths exist on both sides.
 
 
+# ⏱️ Time Spent
+
+This project took 2 hours to complete.
