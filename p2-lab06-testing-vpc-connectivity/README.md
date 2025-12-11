@@ -67,4 +67,27 @@ This project focuses on testing and validating network connectivity within a VPC
         curl https://learn.nextwork.org/projects/aws-host-a-website-on-s3
 
     Returned raw HTML, confirming successful HTTP/HTTPS connectivity
+   
+
+# 📚 Important Concepts Learned
+
+    🔸 EC2 Instance Connect
+    
+    Browser-based SSH
+    
+    No need to store private keys locally
+    
+    Great for secure, temporary access
+    
+    
+    🔸 ICMP (Ping) vs HTTP (Curl)
+    
+    Ping → tests basic network reachability (Layer 3, ICMP)
+    
+    Curl → tests application-level connectivity (Layer 7, HTTP/HTTPS)
+    
+    Together they help identify where the failure occurs
+
+
+
 
