@@ -35,3 +35,50 @@ In this project, I implemented VPC Peering to enable private communication betwe
     Created one public subnet in each VPC
     
     Launched one EC2 instance per VPC
+
+2. VPC Peering Connection 🔄
+    
+    Initiated a VPC Peering request from one VPC (Requester)
+    
+    Accepted the request from the second VPC (Accepter)
+    
+    Enabled private communication using AWS’s internal network
+    
+    No Internet Gateway, VPN, or hardware required
+
+3. Route Table Configuration 🛣️
+
+    Updated both VPC route tables to enable traffic flow:
+    
+    VPC-1 route → 10.2.0.0/16 via peering connection
+    
+    VPC-2 route → 10.1.0.0/16 via peering connection
+    
+    This step was critical — peering alone does not enable traffic
+
+4. EC2 Access & Connectivity Testing 🖥️
+    
+    Used EC2 Instance Connect for SSH access
+    
+    Encountered an error due to missing public IPv4 address
+    
+    Resolved by associating an Elastic IP with the EC2 instance
+    
+    Verified connectivity using:
+    
+        ping <private-ip>
+
+    Successful ping confirmed working VPC peering
+
+
+5. Security Group Adjustments 🔐
+
+    Updated security groups to allow:
+    
+        SSH (port 22)
+        
+        ICMP traffic between VPCs
+        
+        Learned that default security groups only allow traffic within the same VPC
+        
+        Explicit rules are required for cross-VPC communication
