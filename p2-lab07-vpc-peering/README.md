@@ -24,14 +24,14 @@ In this project, I implemented VPC Peering to enable private communication betwe
 
 1. Multi-VPC Architecture 🧱
 
-Created two separate VPCs:
-
-VPC-1: 10.1.0.0/16
-
-VPC-2: 10.2.0.0/16
-
-CIDR blocks were intentionally non-overlapping to avoid routing conflicts
-
-Created one public subnet in each VPC
-
-Launched one EC2 instance per VPC
+    Created two separate VPCs:
+    
+    VPC-1: 10.1.0.0/16
+    
+    VPC-2: 10.2.0.0/16
+    
+    CIDR blocks were intentionally non-overlapping to avoid routing conflicts
+    
+    Created one public subnet in each VPC
+    
+    Launched one EC2 instance per VPC
