@@ -82,3 +82,38 @@ In this project, I implemented VPC Peering to enable private communication betwe
         Learned that default security groups only allow traffic within the same VPC
         
         Explicit rules are required for cross-VPC communication
+
+# 📚 Key Concepts Learned
+
+🔸 What Is VPC Peering?
+
+A direct, private connection between two VPCs
+
+Traffic stays on AWS’s internal network
+
+Low latency, high security, no internet exposure
+
+
+🔸 Routing Is Mandatory
+
+Peering ≠ automatic connectivity
+
+Route tables must explicitly define paths to the peer VPC
+
+
+🔸 Elastic IPs
+
+Provide a static public IPv4 address
+
+Required for consistent EC2 access via Instance Connect
+
+
+
+# 🤔 One Thing I Didn’t Expect
+
+I didn’t expect to create two independent VPCs and successfully enable communication between them. This project clearly demonstrated that VPC peering requires routing, security rules, and troubleshooting, not just connection approval.
+
+
+# ⏱️ Time Spent
+
+This project took 2 hours to complete.
