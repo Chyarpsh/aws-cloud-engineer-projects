@@ -34,6 +34,22 @@ One EC2 instance per VPC
 
 VPC Peering connection between VPC-1 and VPC-2
 
+# Key Skills Demonstrated
+
+🌐 Multi-VPC network design
+
+🔍 Network traffic monitoring using VPC Flow Logs
+
+📜 Log ingestion and retention with CloudWatch Logs
+
+🔐 IAM policy and role creation for AWS logging services
+
+🧪 Connectivity troubleshooting using ICMP (ping)
+
+📊 Log analysis and visualization using CloudWatch Logs Insights
+
+🔗 VPC peering validation through traffic analysis
+
 VPC Flow Logs enabled at the subnet level
 
 Logs delivered to Amazon CloudWatch
