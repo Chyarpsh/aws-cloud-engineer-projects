@@ -1,10 +1,12 @@
 # VPC Monitoring with Flow Logs 📊
 
+
 # Project Overview
 
 In this project, I implemented VPC Flow Logs to monitor, analyze, and troubleshoot network traffic across multiple Amazon VPCs. I configured logging at the subnet level, routed logs to Amazon CloudWatch, and used CloudWatch Logs Insights to analyze traffic patterns, identify connectivity issues, and validate VPC peering behavior.
 
 This project demonstrates real-world cloud monitoring, security visibility, and network troubleshooting skills used in production AWS environments.
+
 
 # Problem Statement
 
@@ -20,6 +22,7 @@ Performance analysis
 
 By default, VPC traffic is not logged. This project solves that gap by enabling and analyzing VPC Flow Logs to understand who communicated with whom, how, when, and whether traffic was allowed or denied.
 
+
 # Architecture Summary 🏗️
 
 Two VPCs with non-overlapping CIDR ranges
@@ -33,6 +36,7 @@ One public subnet per VPC
 One EC2 instance per VPC
 
 VPC Peering connection between VPC-1 and VPC-2
+
 
 # Key Skills Demonstrated
 
@@ -49,6 +53,7 @@ VPC Peering connection between VPC-1 and VPC-2
 📊 Log analysis and visualization using CloudWatch Logs Insights
 
 🔗 VPC peering validation through traffic analysis
+
 
 # What I Implemented
 
@@ -105,5 +110,23 @@ VPC Peering connection between VPC-1 and VPC-2
       Top 10 byte transfers by source and destination
       
     Visualized traffic patterns using charts
+
+
+# Key Insights Gained
+
+VPC Flow Logs provide deep visibility into network behavior
+    
+Connectivity issues are often caused by routing gaps, not security groups alone
+    
+Peering connections require explicit route table updates
+    
+Logs Insights enables powerful, serverless log analytics
+    
+Monitoring is as critical as building infrastructure in cloud environments
+
+
+# Time Investment ⏱️
+
+2 hours
   
     
