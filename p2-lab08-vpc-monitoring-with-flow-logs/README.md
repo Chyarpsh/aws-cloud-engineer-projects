@@ -50,8 +50,60 @@ VPC Peering connection between VPC-1 and VPC-2
 
 🔗 VPC peering validation through traffic analysis
 
-VPC Flow Logs enabled at the subnet level
+# What I Implemented
 
-Logs delivered to Amazon CloudWatch
+1. VPC & EC2 Setup
 
-Traffic analyzed using CloudWatch Logs Insights
+  Created two isolated VPCs with unique CIDR blocks
+  
+  Launched EC2 instances in each VPC for connectivity testing
+  
+  Configured security groups to allow ICMP traffic for testing
+
+2. VPC Flow Logs Configuration 🔎
+
+  Enabled VPC Flow Logs at the subnet level
+  
+  Configured logs to capture all inbound and outbound traffic
+  
+  Sent logs to CloudWatch Log Groups for centralized monitoring
+
+3. IAM Permissions for Logging 🔐
+
+  Created a custom IAM policy allowing VPC Flow Logs to publish logs
+  
+  Created an IAM role and attached the policy
+  
+  Used a trust policy to allow the VPC Flow Logs service to assume the role
+
+4. Connectivity Testing & Troubleshooting 🛠️
+
+  Performed ICMP ping tests between EC2 instances
+  
+  Identified failed connectivity due to missing routes
+  
+  Established VPC peering
+  
+  Updated route tables in both VPCs
+  
+  Retested connectivity and confirmed successful communication
+
+5. Flow Log Analysis with CloudWatch Logs Insights 📈
+
+  Analyzed flow logs to determine:
+  
+    Source & destination IPs
+    
+    Ports and protocols
+    
+    Accepted vs rejected traffic
+  
+    Bytes transferred
+  
+  Ran queries such as:
+  
+    Top 10 byte transfers by source and destination
+    
+  Visualized traffic patterns using charts
+
+  
