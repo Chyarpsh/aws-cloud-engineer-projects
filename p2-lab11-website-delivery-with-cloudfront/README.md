@@ -92,12 +92,13 @@ The auto-generated OAC policy was added to the S3 bucket, explicitly allowing Cl
 
 # 🔍 S3 vs CloudFront Comparison
 
-| Feature |	S3 Website | CloudFront + OAC |
+| Feature | S3 Website | CloudFront + OAC |
+| --- | --- | --- |
 | Bucket Privacy | ❌ Must be public | ✅ Private |
-| Security |	Low |	High |
-| Global Performance |	Regional	| Global CDN |
-| Access Control |	Weak |	Strong |
-| Enterprise-Ready	| ❌ |	✅ |
+| Security | Low | High |
+| Global Performance | Regional | Global CDN |
+| Access Control | Weak | Strong |
+| Enterprise-Ready | ❌ | ✅ |
 
 S3 hosting required public read access, exposing the bucket to the internet, while CloudFront allowed secure, private delivery through OAC 
 
