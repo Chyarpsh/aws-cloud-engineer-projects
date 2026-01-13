@@ -1,5 +1,7 @@
-🌐 Build a Three-Tier Serverless Web Application on AWS
-📌 Project Overview
+# 🌐 Build a Three-Tier Serverless Web Application on AWS
+
+
+# 📌 Project Overview
 
 In this project, I designed and deployed a complete three-tier serverless web application using Amazon S3, CloudFront, API Gateway, AWS Lambda, and Amazon DynamoDB. The goal was to understand how modern cloud applications connect frontend, backend, and database layers securely and efficiently without managing servers.
 
