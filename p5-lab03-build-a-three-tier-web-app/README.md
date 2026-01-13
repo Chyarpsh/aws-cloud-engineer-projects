@@ -88,7 +88,7 @@ in every response
   Invalidating CloudFront so the updated files were served 
 
 
-🧠 What I Learned
+# 🧠 What I Learned
 
 How three-tier cloud architectures work end-to-end
 
