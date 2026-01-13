@@ -89,11 +89,7 @@ p7-lab02-add-custom-slots-to-a-lex-chatbot/
 p7-lab03-connect-amazon-lex-with-lambda/
 p7-lab04-save-user-info-with-a-lex-chatbot/
 p7-lab05-set-up-multiple-slots-in-a-lex-chatbot/
-p7-lab06-set-up-a-rag-chatbot-in-bedrock/
-p7-lab07-chat-with-your-bot-in-the-terminal/
-p7-lab08-create-an-api-for-your-rag-chatbot/
-p7-lab09-build-a-web-app-for-your-rag-chatbot/
-p7-lab10-transcribe-audio-files-with-ai/
+p7-lab06-transcribe-audio-files-with-ai/
 
 ---
 
