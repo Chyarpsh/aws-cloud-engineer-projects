@@ -52,11 +52,10 @@ p2-lab10-vpc-endpoints/
 p2-lab11-website-delivery-with-cloudfront/
 
 p3-lab01-get-hands-on-with-aws-databases/
-p3-lab02-visualize-a-relational-database/
-p3-lab03-aurora-database-with-ec2/
-p3-lab04-connect-a-web-app-with-aurora/
-p3-lab05-load-data-into-dynamodb/
-p3-lab06-query-data-with-dynamodb/
+p3-lab02-aurora-database-with-ec2/
+p3-lab03-connect-a-web-app-with-aurora/
+p3-lab04-load-data-into-dynamodb/
+p3-lab05-query-data-with-dynamodb/
 
 p4-lab01-cloud-security-with-aws-iam/
 p4-lab02-encrypt-data-with-aws-kms/
