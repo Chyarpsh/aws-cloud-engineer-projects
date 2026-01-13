@@ -1,7 +1,7 @@
-#🚀 Load Data into Amazon DynamoDB using AWS CLI
+# 🚀 Load Data into Amazon DynamoDB using AWS CLI
 
 
-#📌 Project Overview
+# 📌 Project Overview
 
 In this project, I created and populated an Amazon DynamoDB NoSQL database using the AWS CLI in CloudShell. The goal was to simulate how real cloud applications ingest and manage structured and semi-structured data in a scalable, serverless database.
 This project demonstrates how cloud engineers work with DynamoDB tables, capacity planning, and command-line automation to manage production data pipelines.
