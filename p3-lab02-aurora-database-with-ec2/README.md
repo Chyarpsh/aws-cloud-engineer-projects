@@ -1,4 +1,4 @@
-## 🚀 Connect a Web Application to Amazon Aurora (AWS)
+# 🚀 Connect a Web Application to Amazon Aurora (AWS)
 
 
 # 📌 Project Overview
