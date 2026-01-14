@@ -1,14 +1,14 @@
-🤖 Save User Information with an Amazon Lex Chatbot (Context Carryover)
-📌 Project Overview
+# 🤖 Save User Information with an Amazon Lex Chatbot (Context Carryover)
+
+
+# 📌 Project Overview
 
 In this project, I enhanced an Amazon Lex chatbot (BankerBot) to remember user information across intents using context carryover. By configuring input and output context tags, the chatbot can reuse previously collected details—such as a user’s date of birth—when handling follow-up requests, without asking the same questions again.
-
 This project focuses on building stateful, natural conversations while balancing user experience, privacy, and security.
 
-🏗 Architecture
+# 🏗 Architecture
 
 User → Amazon Lex → CheckBalance Intent → Context Tags → FollowUpCheckBalance Intent
-
 Amazon Lex stores context temporarily during a conversation and uses it to control which intents can be triggered and what information can be reused.
 
 
