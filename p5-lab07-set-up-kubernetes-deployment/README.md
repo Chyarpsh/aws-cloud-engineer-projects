@@ -20,7 +20,7 @@ Kubernetes handles scheduling, scaling, and recovery of application pods across 
 | Amazon EKS	| Managed Kubernetes control plane |
 | Kubernetes (kubectl)	| Manages deployments, pods, and services |
 | Amazon EC2	| Worker nodes running Kubernetes pods |
-| Auto Scaling | Groups	Automatically replaces failed worker nodes |
+| Auto Scaling Groups	| Automatically replaces failed worker nodes |
 | Docker	| Container image used by the deployment |
 | eksctl	| Used earlier to provision the EKS cluster |
 
