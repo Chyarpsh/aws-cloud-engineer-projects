@@ -3,8 +3,7 @@
 
 # 📌 Project Overview
 
-In this project, I connected a cloud-hosted web application running on Amazon EC2 to a GitHub repository using Git. I initialized a local Git repository on the EC2 instance, linked it to GitHub, and pushed application code securely using GitHub Personal Access Tokens (PATs).
-This project demonstrates real-world DevOps fundamentals, including source control, remote development, secure authentication, and preparing an application for a future CI/CD pipeline.
+In this project, I connected a cloud-hosted web application running on Amazon EC2 to a GitHub repository using Git. I initialized a local Git repository on the EC2 instance, linked it to GitHub, and pushed application code securely using GitHub Personal Access Tokens (PATs). This project demonstrates real-world DevOps fundamentals, including source control, remote development, secure authentication, and preparing an application for a future CI/CD pipeline.
 
 
 # 🏗 Architecture
