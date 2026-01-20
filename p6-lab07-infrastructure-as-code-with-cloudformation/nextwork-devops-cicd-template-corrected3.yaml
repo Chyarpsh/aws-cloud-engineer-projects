@@ -1,0 +1,308 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  NextWork DevOps CI/CD (CodeBuild + CodeDeploy + CodeArtifact) - fixed for re-runs:
+  - Uses existing CodeStar Connection ARN (no Connection creation in CloudFormation)
+  - No hard-coded role names (avoid AlreadyExists)
+  - Globally-unique S3 bucket name parameter
+  - CodeArtifact domain name <= 50 chars
+
+Parameters:
+  BuildProjectName:
+    Type: String
+    Default: nextwork-devops-cicd
+    Description: CodeBuild project name
+
+  CodeDeployAppName:
+    Type: String
+    Default: nextwork-devops-cicd
+    Description: CodeDeploy application name
+
+  CodeDeployDeploymentGroupName:
+    Type: String
+    Default: nextwork-devops-cicd
+    Description: CodeDeploy deployment group name
+
+  CodeStarConnectionArn:
+    Type: String
+    Description: Paste the CodeStar Connection ARN created in us-east-1 (Developer Tools -> Connections)
+
+  GitHubRepoOwner:
+    Type: String
+    Default: Chyarpsh
+    Description: GitHub repository owner (username or org)
+
+  GitHubRepo:
+    Type: String
+    Default: nextwork-web-project
+    Description: GitHub repository name (no .git)
+
+  ArtifactsBucketName:
+    Type: String
+    Default: "nextwork-devops-cicd-artifacts-006834263464-us-east-1"
+    Description: Must be globally unique (S3 bucket name)
+
+  CodeArtifactDomainName:
+    Type: String
+    Default: "nextwork-006834263464-use1"
+    Description: CodeArtifact domain name (<=50 chars, letters/numbers/.-) and must be unique in this account/region
+
+  LatestAmazonLinuxAmiId:
+    Type: "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>"
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
+    Description: Latest Amazon Linux 2023 AMI ID via SSM
+
+Resources:
+  # -----------------------
+  # S3 Artifacts Bucket
+  # -----------------------
+  S3BucketArtifacts:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      BucketName: !Ref ArtifactsBucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+
+  # -----------------------
+  # CodeArtifact
+  # -----------------------
+  CodeArtifactDomain:
+    Type: AWS::CodeArtifact::Domain
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      DomainName: !Ref CodeArtifactDomainName
+
+  CodeArtifactRepoMavenCentral:
+    Type: AWS::CodeArtifact::Repository
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    DependsOn: CodeArtifactDomain
+    Properties:
+      DomainName: !Ref CodeArtifactDomainName
+      RepositoryName: maven-central
+      ExternalConnections:
+        - public:maven-central
+
+  CodeArtifactRepoNextWork:
+    Type: AWS::CodeArtifact::Repository
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    DependsOn: CodeArtifactRepoMavenCentral
+    Properties:
+      DomainName: !Ref CodeArtifactDomainName
+      RepositoryName: nextwork-devops-cicd
+      Upstreams:
+        - maven-central
+
+  # -----------------------
+  # IAM: EC2 instance role (for CodeDeploy agent + S3 read)
+  # -----------------------
+  IAMRoleEC2Instance:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        # Note: This managed policy is legacy but is what many labs still use.
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy
+      Policies:
+        - PolicyName: ReadArtifactsFromS3
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketLocation
+                  - s3:ListBucket
+                Resource:
+                  - !GetAtt S3BucketArtifacts.Arn
+                  - !Sub "${S3BucketArtifacts.Arn}/*"
+
+  EC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref IAMRoleEC2Instance
+
+  # -----------------------
+  # IAM: CodeDeploy service role
+  # -----------------------
+  IAMRoleCodeDeployService:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codedeploy.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole
+
+  # -----------------------
+  # IAM: CodeBuild service role (CloudWatch Logs + S3 + CodeArtifact)
+  # -----------------------
+  IAMRoleCodeBuildService:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CodeBuildLogsAndS3
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketLocation
+                  - s3:ListBucket
+                Resource:
+                  - !GetAtt S3BucketArtifacts.Arn
+                  - !Sub "${S3BucketArtifacts.Arn}/*"
+
+        - PolicyName: CodeArtifactAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - codeartifact:GetAuthorizationToken
+                  - codeartifact:GetRepositoryEndpoint
+                  - codeartifact:ReadFromRepository
+                  - codeartifact:PublishPackageVersion
+                  - codeartifact:PutPackageMetadata
+                  - codeartifact:Describe*
+                  - codeartifact:List*
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - sts:GetServiceBearerToken
+                Resource: "*"
+                Condition:
+                  StringEquals:
+                    sts:AWSServiceName: codeartifact.amazonaws.com
+
+        - PolicyName: CodeStarConnectionsUse
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - codestar-connections:UseConnection
+                  - codestar-connections:PassConnection
+                Resource: !Ref CodeStarConnectionArn
+
+  # -----------------------
+  # EC2 instance for CodeDeploy
+  # -----------------------
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref LatestAmazonLinuxAmiId
+      InstanceType: t2.micro
+      IamInstanceProfile: !Ref EC2InstanceProfile
+      Tags:
+        - Key: Name
+          Value: !Sub "nextwork-devops-${AWS::StackName}"
+
+  # -----------------------
+  # CodeDeploy: App + Deployment Group
+  # -----------------------
+  CodeDeployApplication:
+    Type: AWS::CodeDeploy::Application
+    Properties:
+      ApplicationName: !Ref CodeDeployAppName
+      ComputePlatform: Server
+
+  CodeDeployDeploymentGroup:
+    Type: AWS::CodeDeploy::DeploymentGroup
+    Properties:
+      ApplicationName: !Ref CodeDeployApplication
+      DeploymentGroupName: !Ref CodeDeployDeploymentGroupName
+      ServiceRoleArn: !GetAtt IAMRoleCodeDeployService.Arn
+      DeploymentConfigName: CodeDeployDefault.AllAtOnce
+      Ec2TagFilters:
+        - Key: Name
+          Value: !Sub "nextwork-devops-${AWS::StackName}"
+          Type: KEY_AND_VALUE
+
+  # -----------------------
+  # CodeBuild Project (uses CodeStar Connection)
+  # -----------------------
+  CodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Ref BuildProjectName
+      ServiceRole: !GetAtt IAMRoleCodeBuildService.Arn
+      Artifacts:
+        Type: S3
+        Location: !Ref S3BucketArtifacts
+        Packaging: ZIP
+        Name: artifact.zip
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:7.0
+        PrivilegedMode: false
+        EnvironmentVariables:
+          - Name: CODEARTIFACT_DOMAIN
+            Value: !Ref CodeArtifactDomainName
+          - Name: CODEARTIFACT_REPO
+            Value: nextwork-devops-cicd
+          - Name: ARTIFACTS_BUCKET
+            Value: !Ref S3BucketArtifacts
+      Source:
+        Type: CODESTAR_CONNECTION
+        Location: !Sub "https://github.com/${GitHubRepoOwner}/${GitHubRepo}"
+        Auth:
+          Type: CODECONNECTIONS
+          Resource: !Ref CodeStarConnectionArn
+        GitCloneDepth: 1
+        BuildSpec: buildspec.yml
+        ReportBuildStatus: true
+
+Outputs:
+  ArtifactsBucket:
+    Value: !Ref S3BucketArtifacts
+
+  CodeArtifactDomainName:
+    Value: !Ref CodeArtifactDomainName
+
+  CodeArtifactRepoName:
+    Value: nextwork-devops-cicd
+
+  CodeDeployApp:
+    Value: !Ref CodeDeployApplication
+
+  CodeDeployDeploymentGroup:
+    Value: !Ref CodeDeployDeploymentGroup
+
+  CodeBuildProjectName:
+    Value: !Ref CodeBuildProject
