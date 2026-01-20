@@ -3,8 +3,7 @@
 
 # 📌 Project Overview
 
-In this project, I designed and implemented a production-style Continuous Integration (CI) pipeline using AWS CodeBuild. The pipeline automatically pulls source code from GitHub, installs dependencies, runs builds and tests using Apache Maven, securely retrieves packages from AWS CodeArtifact, and stores build artifacts in Amazon S3.
-This project demonstrates how modern engineering teams use CI automation to catch errors early, reduce manual work, and ensure consistent, repeatable builds in real-world DevOps environments.
+In this project, I designed and implemented a production-style Continuous Integration (CI) pipeline using AWS CodeBuild. The pipeline automatically pulls source code from GitHub, installs dependencies, runs builds and tests using Apache Maven, securely retrieves packages from AWS CodeArtifact, and stores build artifacts in Amazon S3. This project demonstrates how modern engineering teams use CI automation to catch errors early, reduce manual work, and ensure consistent, repeatable builds in real-world DevOps environments.
 
 
 # 🏗 Architecture
