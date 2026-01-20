@@ -3,8 +3,7 @@
 
 # 📌 Project Overview
 
-In this project, I rebuilt an entire end-to-end CI/CD infrastructure using Infrastructure as Code (IaC) with AWS CloudFormation. Instead of manually creating resources in the AWS Console, I defined my full deployment environment—including EC2, IAM roles, CodeDeploy, CodeArtifact, S3, and networking—inside a single CloudFormation template.
-The goal was to prove I can design repeatable, reliable, production-aligned infrastructure that avoids configuration drift and supports automated deployments, rollbacks, and future environment expansion (dev/test/prod) 
+In this project, I rebuilt an entire end-to-end CI/CD infrastructure using Infrastructure as Code (IaC) with AWS CloudFormation. Instead of manually creating resources in the AWS Console, I defined my full deployment environment—including EC2, IAM roles, CodeDeploy, CodeArtifact, S3, and networking—inside a single CloudFormation template. The goal was to prove I can design repeatable, reliable, production-aligned infrastructure that avoids configuration drift and supports automated deployments, rollbacks, and future environment expansion (dev/test/prod) 
 
 
 # 🏗 Architecture
