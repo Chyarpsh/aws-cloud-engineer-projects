@@ -3,8 +3,7 @@
 
 # 📌 Project Overview
 
-In this project, I built a fully automated Continuous Integration and Continuous Deployment (CI/CD) pipeline using AWS CodePipeline. The pipeline connects GitHub (source), AWS CodeBuild (build), and AWS CodeDeploy (deploy) into a single, end-to-end workflow that automatically builds and deploys application changes to Amazon EC2.
-I validated the pipeline by pushing real code changes to GitHub and observing them deploy automatically. I also tested failure handling and rollback, proving that the pipeline can safely recover by redeploying a previously stable version—just like in real production environments 
+In this project, I built a fully automated Continuous Integration and Continuous Deployment (CI/CD) pipeline using AWS CodePipeline. The pipeline connects GitHub (source), AWS CodeBuild (build), and AWS CodeDeploy (deploy) into a single, end-to-end workflow that automatically builds and deploys application changes to Amazon EC2. I validated the pipeline by pushing real code changes to GitHub and observing them deploy automatically. I also tested failure handling and rollback, proving that the pipeline can safely recover by redeploying a previously stable version—just like in real production environments 
 
 
 # 🏗 Architecture
