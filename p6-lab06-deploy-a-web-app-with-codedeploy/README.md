@@ -2,8 +2,7 @@
 
 # 📌 Project Overview
 
-In this project, I built a production-style deployment pipeline to deploy a Java web application onto Amazon EC2 using AWS CodeDeploy. I provisioned the entire deployment environment using AWS CloudFormation, automated server configuration with deployment scripts, deployed application artifacts from Amazon S3, and implemented automatic rollback to recover safely from deployment failures.
-This project demonstrates how real-world teams automate deployments, reduce manual errors, and ensure application reliability using CI/CD best practices and disaster recovery strategies 
+In this project, I built a production-style deployment pipeline to deploy a Java web application onto Amazon EC2 using AWS CodeDeploy. I provisioned the entire deployment environment using AWS CloudFormation, automated server configuration with deployment scripts, deployed application artifacts from Amazon S3, and implemented automatic rollback to recover safely from deployment failures. This project demonstrates how real-world teams automate deployments, reduce manual errors, and ensure application reliability using CI/CD best practices and disaster recovery strategies 
 
 
 # 🏗 Architecture
