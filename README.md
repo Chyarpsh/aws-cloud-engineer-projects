@@ -137,6 +137,18 @@ In addition to phase-based labs, this repository includes end-to-end, real-world
     Serverless Contact Form Debugging
     Automated Cost Governance & Resource Cleanup
 
+# 🎫 Cloud Support Ticketing Simulation
+
+    The tickets are based on **real AWS issues encountered during my projects**, covering networking, CloudFront failover, and CI/CD deployment failures
+
+    Instead of using a specific ticketing tool, the focus is on:
+        - Incident triage
+        - Root cause analysis
+        - Resolution documentation
+        - Preventive actions
+
+The tickets are based on **real AWS issues encountered during my projects**, covering networking, CloudFront failover, and CI/CD deployment failures.
+
 Each advanced project includes:
 
     Architecture overview
